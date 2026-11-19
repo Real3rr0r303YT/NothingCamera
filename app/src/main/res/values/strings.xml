@@ -76,4 +76,7 @@
     <string name="license">License</string>
     <string name="made_by" translatable="false">Made by 3rr0r303YT on TikTok</string>
     <string name="unofficial">unofficial fan project, not affiliated with Nothing</string>
+    <string name="video_fps">Frame rate</string>
+    <string name="video_fps_summary">60 fps only where the camera supports it – otherwise it records at 30 fps. Tap the quality button in video mode for quick switching (e.g. 4K 30, HD 60).</string>
+    <string name="fps_unsupported">60 fps isn\'t supported at this quality – recording at 30 fps</string>
 </resources>

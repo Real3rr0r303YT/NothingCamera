@@ -162,6 +162,13 @@ fun SettingsScreen(
                     selected = settings.videoQuality,
                     onSelect = { v -> store.update { it.copy(videoQuality = v) } },
                 )
+                ChoiceRow(
+                    title = stringResource(R.string.video_fps),
+                    subtitle = stringResource(R.string.video_fps_summary),
+                    options = listOf(30 to "30 fps", 60 to "60 fps"),
+                    selected = settings.videoFps,
+                    onSelect = { v -> store.update { it.copy(videoFps = v) } },
+                )
             }
 
             SectionLabel(stringResource(R.string.section_language))

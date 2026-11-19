@@ -92,6 +92,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -109,6 +110,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.real3rr0r303yt.nothingcamera.R
 import com.real3rr0r303yt.nothingcamera.camera.BindConfig
 import com.real3rr0r303yt.nothingcamera.camera.CameraController
+import com.real3rr0r303yt.nothingcamera.camera.DigitalZoom
 import com.real3rr0r303yt.nothingcamera.camera.Lens
 import com.real3rr0r303yt.nothingcamera.camera.Mode
 import com.real3rr0r303yt.nothingcamera.camera.VideoTarget
@@ -118,6 +120,7 @@ import com.real3rr0r303yt.nothingcamera.data.Flash
 import com.real3rr0r303yt.nothingcamera.data.Ratio
 import com.real3rr0r303yt.nothingcamera.data.SaveTarget
 import com.real3rr0r303yt.nothingcamera.data.Settings
+import com.real3rr0r303yt.nothingcamera.data.VideoQuality
 import com.real3rr0r303yt.nothingcamera.data.SettingsStore
 import com.real3rr0r303yt.nothingcamera.privacy.MediaSaver
 import com.real3rr0r303yt.nothingcamera.privacy.Vault
@@ -155,7 +158,11 @@ fun CameraScreen(
     val scope = rememberCoroutineScope()
     val cam by controller.state.collectAsStateWithLifecycle()
     val previewView = remember {
-        PreviewView(context).apply { scaleType = PreviewView.ScaleType.FIT_CENTER }
+        PreviewView(context).apply {
+            scaleType = PreviewView.ScaleType.FIT_CENTER
+            // TextureView-based, so the preview can be scaled for zoom beyond the driver's limit.
+            implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+        }
     }
 
     var mode by rememberSaveable { mutableStateOf(if (request?.video == true || startInVideo) Mode.VIDEO else Mode.PHOTO) }
@@ -187,10 +194,17 @@ fun CameraScreen(
             initError = e.message ?: e.javaClass.simpleName
         }
     }
-    LaunchedEffect(cam.ready, mode, lens, settings.ratio, settings.videoQuality) {
+    LaunchedEffect(cam.ready, mode, lens, settings.ratio, settings.videoQuality, settings.videoFps) {
         if (cam.ready) {
-            controller.bind(owner, previewView, BindConfig(mode, lens, settings.ratio, settings.videoQuality, settings.flash, rotation))
+            controller.bind(
+                owner,
+                previewView,
+                BindConfig(mode, lens, settings.ratio, settings.videoQuality, settings.flash, rotation, settings.videoFps),
+            )
         }
+    }
+    LaunchedEffect(cam.fpsFallback) {
+        if (cam.fpsFallback) Toast.makeText(context, R.string.fps_unsupported, Toast.LENGTH_LONG).show()
     }
     LaunchedEffect(settings.flash) { controller.setFlash(settings.flash) }
     LaunchedEffect(rotation) { controller.setRotation(rotation) }
@@ -210,9 +224,12 @@ fun CameraScreen(
             try {
                 play(MediaActionSound.SHUTTER_CLICK)
                 launch { flashOverlay = true; delay(90); flashOverlay = false }
+                val digital = controller.state.value.digital
                 val (raw, rot) = controller.takePhoto()
                 // Strip every byte of metadata before anything is written anywhere.
-                val clean = withContext(Dispatchers.Default) { JpegSanitizer.sanitize(raw, rot) }
+                val clean = withContext(Dispatchers.Default) {
+                    JpegSanitizer.sanitize(DigitalZoom.cropCenter(raw, digital), rot)
+                }
                 raw.fill(0)
                 if (request != null) {
                     onResult(withContext(Dispatchers.IO) { deliverPhoto(context, request, clean) })
@@ -327,7 +344,16 @@ fun CameraScreen(
     LaunchedEffect(Unit) { ShutterKeys.events.collect { onShutter() } }
 
     Box(Modifier.fillMaxSize().background(Color.Black)) {
-        AndroidView(factory = { previewView }, modifier = Modifier.fillMaxSize())
+        AndroidView(
+            factory = { previewView },
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    val d = cam.digital
+                    scaleX = d
+                    scaleY = d
+                },
+        )
 
         // Gesture layer + overlays aligned to the actual image area.
         BoxWithConstraints(
@@ -335,7 +361,14 @@ fun CameraScreen(
                 .fillMaxSize()
                 .pointerInputs(
                     onZoom = { factor -> controller.setZoom(controller.state.value.zoom * factor) },
-                    onTap = { off -> focusPoint = off; controller.focus(previewView, off.x, off.y) },
+                    onTap = { off ->
+                        focusPoint = off
+                        // Undo the preview's crop-zoom scale so focus lands on what you tapped.
+                        val d = controller.state.value.digital
+                        val cx = previewView.width / 2f
+                        val cy = previewView.height / 2f
+                        controller.focus(previewView, cx + (off.x - cx) / d, cy + (off.y - cy) / d)
+                    },
                     onDoubleTap = { if (!controller.state.value.recording && cam.hasFront && cam.hasBack) lens = if (lens == Lens.BACK) Lens.FRONT else Lens.BACK },
                 ),
         ) {
@@ -418,6 +451,14 @@ fun CameraScreen(
             onTimer = { store.update { it.copy(timerSeconds = when (it.timerSeconds) { 0 -> 3; 3 -> 10; else -> 0 }) } },
             onGrid = { store.update { it.copy(grid = !it.grid) } },
             onRatio = { store.update { it.copy(ratio = if (it.ratio == Ratio.R4_3) Ratio.R16_9 else Ratio.R4_3) } },
+            videoLabel = videoLabel(settings.videoQuality, if (cam.fpsFallback) cam.fps else settings.videoFps),
+            onVideoQuality = {
+                store.update {
+                    val i = VIDEO_PRESETS.indexOf(it.videoQuality to it.videoFps)
+                    val (q, f) = VIDEO_PRESETS[(i + 1) % VIDEO_PRESETS.size]
+                    it.copy(videoQuality = q, videoFps = f)
+                }
+            },
             onVaultToggle = {
                 store.update {
                     val next = if (it.saveTarget == SaveTarget.VAULT) SaveTarget.GALLERY else SaveTarget.VAULT
@@ -521,6 +562,8 @@ private fun TopBar(
     onTimer: () -> Unit,
     onGrid: () -> Unit,
     onRatio: () -> Unit,
+    videoLabel: String,
+    onVideoQuality: () -> Unit,
     onVaultToggle: () -> Unit,
     onSettings: () -> Unit,
 ) {
@@ -563,12 +606,17 @@ private fun TopBar(
                 .clip(CircleShape)
                 .background(Color(0x66000000))
                 .border(1.dp, Color(0x33FFFFFF), CircleShape)
-                .clickable(enabled = !recording, role = Role.Button, onClick = onRatio),
+                .clickable(enabled = !recording, role = Role.Button, onClick = if (mode == Mode.VIDEO) onVideoQuality else onRatio),
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                if (settings.ratio == Ratio.R16_9) "16:9" else "4:3",
+                when {
+                    mode == Mode.VIDEO -> videoLabel
+                    settings.ratio == Ratio.R16_9 -> "16:9"
+                    else -> "4:3"
+                },
                 style = MaterialTheme.typography.labelSmall,
+                textAlign = TextAlign.Center,
                 color = NothingWhite,
                 modifier = Modifier.rotate(angle),
             )
@@ -729,7 +777,11 @@ private fun ZoomChips(zoom: Float, minZoom: Float, maxZoom: Float, angle: Float,
         if (minZoom < 0.95f) add(minZoom)
         add(1f)
         if (maxZoom >= 2f) add(2f)
-        if (maxZoom >= 5f) add(5f)
+        when {
+            maxZoom >= 40f -> { add(10f); add(40f) }
+            maxZoom >= 10f -> add(10f)
+            maxZoom >= 5f -> add(5f)
+        }
     }
     val active = presets.lastOrNull { zoom + 0.01f >= it } ?: presets.first()
     Row(
@@ -762,4 +814,20 @@ private fun formatZoom(z: Float): String {
     val rounded = (z * 10).roundToInt() / 10f
     val text = if (rounded % 1f == 0f) rounded.toInt().toString() else String.format(Locale.ROOT, "%.1f", rounded)
     return "$text×"
+}
+
+/** Quick presets cycled by the quality pill in video mode. */
+private val VIDEO_PRESETS = listOf(
+    VideoQuality.HD to 30, VideoQuality.HD to 60,
+    VideoQuality.FHD to 30, VideoQuality.FHD to 60,
+    VideoQuality.UHD to 30, VideoQuality.UHD to 60,
+)
+
+private fun videoLabel(quality: VideoQuality, fps: Int): String {
+    val q = when (quality) {
+        VideoQuality.HD -> "HD"
+        VideoQuality.FHD -> "FHD"
+        VideoQuality.UHD -> "4K"
+    }
+    return "$q\n$fps"
 }

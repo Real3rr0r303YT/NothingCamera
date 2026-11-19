@@ -38,6 +38,7 @@ data class Settings(
     val grid: Boolean = false,
     val ratio: Ratio = Ratio.R4_3,
     val videoQuality: VideoQuality = VideoQuality.FHD,
+    val videoFps: Int = 30,
     val flash: Flash = Flash.OFF,
     val timerSeconds: Int = 0,
 )
@@ -64,6 +65,7 @@ class SettingsStore(context: Context) {
             .putBoolean("grid", next.grid)
             .putString("ratio", next.ratio.name)
             .putString("videoQuality", next.videoQuality.name)
+            .putInt("videoFps", next.videoFps)
             .putString("flash", next.flash.name)
             .putInt("timerSeconds", next.timerSeconds)
             .apply()
@@ -81,6 +83,7 @@ class SettingsStore(context: Context) {
             grid = prefs.getBoolean("grid", d.grid),
             ratio = enumOr(prefs.getString("ratio", null), d.ratio),
             videoQuality = enumOr(prefs.getString("videoQuality", null), d.videoQuality),
+            videoFps = prefs.getInt("videoFps", d.videoFps).takeIf { it == 30 || it == 60 } ?: 30,
             flash = enumOr(prefs.getString("flash", null), d.flash),
             timerSeconds = prefs.getInt("timerSeconds", d.timerSeconds),
         )

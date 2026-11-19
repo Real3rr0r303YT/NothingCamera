@@ -13,10 +13,11 @@ Tiefschwarz, Dot-Matrix-Details, ein roter Akzent und **überhaupt kein Internet
 
 - **Foto, Video, Nacht & Porträt**: Nacht- und Porträtmodus erscheinen automatisch, wenn die
   Kamera-Extensions des Handys sie unterstützen
-- **Zoom-Chips & Pinch-Zoom** (Ultraweitwinkel, wenn vorhanden), **Tippen zum Fokussieren**,
-  **Doppeltippen zum Kamerawechsel**
+- **Zoom bis 40×** (Chips 0,6 · 1 · 2 · 10 · 40 und Pinch-Zoom): der Zoom der Kamera wird so weit wie möglich genutzt, darüber
+  wird die Fotomitte zugeschnitten (digital, also schlechtere Qualität bei sehr starkem Zoom). Dazu **Tippen zum Fokussieren**
+  und **Doppeltippen zum Kamerawechsel**
 - **Blitz** (aus / auto / an, beim Filmen als Taschenlampe), **Selbstauslöser** (3 s / 10 s mit
-  Dot-Matrix-Countdown), **Raster**, **4:3 / 16:9**, **720p / 1080p / 4K**, **Pause** beim Filmen
+  Dot-Matrix-Countdown), **Raster**, **4:3 / 16:9**, **720p / 1080p / 4K mit 30 oder 60 fps** (Schnellknopf im Videomodus: HD 30 → HD 60 → FHD 30 → FHD 60 → 4K 30 → 4K 60; fällt auf 30 fps zurück, wenn die Kamera keine 60 kann), **Pause** beim Filmen
 - **Lautstärke- und Kamerataste** lösen aus
 - **Icons drehen sich** mit dem Handy, die Oberfläche bleibt stehen, Fotos werden immer richtig herum gespeichert
 - **Funktioniert als Systemkamera**: andere Apps können Fotos und Videos anfordern

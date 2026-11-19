@@ -24,6 +24,7 @@ import android.graphics.ImageFormat
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
+import android.util.Range
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
@@ -78,8 +79,17 @@ data class CameraState(
     val hasFront: Boolean = true,
     val hasFlash: Boolean = false,
     val minZoom: Float = 1f,
+    /** Upper limit incl. digital crop zoom (up to [MAX_PHOTO_ZOOM] for photos). */
     val maxZoom: Float = 1f,
+    /** What the camera driver itself can do (optical + its own digital zoom). */
+    val halMaxZoom: Float = 1f,
     val zoom: Float = 1f,
+    /** Extra crop factor on top of the driver's zoom (1 = none). Photos only. */
+    val digital: Float = 1f,
+    /** Frame rate the current video session really uses. */
+    val fps: Int = 30,
+    /** True when 60 fps was asked for but the camera can't do it at this quality. */
+    val fpsFallback: Boolean = false,
     val extensionModes: Set<Mode> = emptySet(),
     val recording: Boolean = false,
     val paused: Boolean = false,
@@ -94,7 +104,11 @@ data class BindConfig(
     val quality: VideoQuality,
     val flash: Flash,
     val rotation: Int,
+    val fps: Int = 30,
 )
+
+/** Total zoom offered for photos; beyond the driver's limit the centre is cropped. */
+const val MAX_PHOTO_ZOOM = 40f
 
 /** Where a video recording goes. */
 sealed interface VideoTarget {
@@ -148,11 +162,17 @@ class CameraController(private val context: Context) {
         }
     }
 
-    fun bind(owner: LifecycleOwner, previewView: PreviewView, cfg: BindConfig) {
+    fun bind(owner: LifecycleOwner, previewView: PreviewView, requested: BindConfig, isFallback: Boolean = false) {
         val p = provider ?: return
         if (recording != null) return
-        val available = extensionModesFor(cfg.lens)
-        val mode = if (cfg.mode in setOf(Mode.NIGHT, Mode.PORTRAIT) && cfg.mode !in available) Mode.PHOTO else cfg.mode
+        val available = extensionModesFor(requested.lens)
+        val mode = if (requested.mode in setOf(Mode.NIGHT, Mode.PORTRAIT) && requested.mode !in available) Mode.PHOTO else requested.mode
+        // 60 fps only if the sensor offers a 60 fps range at all; otherwise fall back right away.
+        val cfg = if (mode == Mode.VIDEO && requested.fps > 30 && !supportsFps(p, requested.lens, requested.fps)) {
+            return bind(owner, previewView, requested.copy(fps = 30), isFallback = true)
+        } else {
+            requested
+        }
 
         val ratioStrategy = if (cfg.ratio == Ratio.R16_9) {
             AspectRatioStrategy.RATIO_16_9_FALLBACK_AUTO_STRATEGY
@@ -180,7 +200,9 @@ class CameraController(private val context: Context) {
                 .setQualitySelector(QualitySelector.from(quality, FallbackStrategy.lowerQualityOrHigherThan(quality)))
                 .setAspectRatio(if (cfg.ratio == Ratio.R16_9) AspectRatio.RATIO_16_9 else AspectRatio.RATIO_4_3)
                 .build()
-            VideoCapture.Builder(recorder).setTargetRotation(cfg.rotation).build().also { videoCapture = it }
+            val builder = VideoCapture.Builder(recorder).setTargetRotation(cfg.rotation)
+            if (cfg.fps > 30) builder.setTargetFrameRate(Range(cfg.fps, cfg.fps))
+            builder.build().also { videoCapture = it }
         } else {
             videoCapture = null
             ImageCapture.Builder()
@@ -205,18 +227,28 @@ class CameraController(private val context: Context) {
             bound = cfg.copy(mode = mode)
             val zs = cam.cameraInfo.zoomState.value
             if (mode == Mode.VIDEO) cam.cameraControl.enableTorch(cfg.flash == Flash.ON)
+            val halMax = zs?.maxZoomRatio ?: 1f
             _state.update {
                 it.copy(
                     hasFlash = cam.cameraInfo.hasFlashUnit(),
                     minZoom = zs?.minZoomRatio ?: 1f,
-                    maxZoom = zs?.maxZoomRatio ?: 1f,
+                    halMaxZoom = halMax,
+                    // Video can't be cropped after the fact, so it stays at the driver's limit.
+                    maxZoom = if (mode == Mode.VIDEO) halMax else maxOf(halMax, MAX_PHOTO_ZOOM),
                     zoom = zs?.zoomRatio ?: 1f,
+                    digital = 1f,
+                    fps = if (mode == Mode.VIDEO) cfg.fps else 30,
+                    fpsFallback = isFallback,
                     extensionModes = available,
                     error = null,
                 )
             }
         } catch (e: Exception) {
-            _state.update { it.copy(error = e.message ?: e.javaClass.simpleName) }
+            if (mode == Mode.VIDEO && cfg.fps > 30) {
+                bind(owner, previewView, cfg.copy(fps = 30), isFallback = true)
+            } else {
+                _state.update { it.copy(error = e.message ?: e.javaClass.simpleName) }
+            }
         }
     }
 
@@ -230,11 +262,19 @@ class CameraController(private val context: Context) {
         if (recording == null) videoCapture?.targetRotation = rotation
     }
 
+    /** Total zoom: the driver handles what it can, the rest is a centre crop (photos only). */
     fun setZoom(ratio: Float) {
         val s = _state.value
-        val clamped = ratio.coerceIn(s.minZoom, s.maxZoom)
-        camera?.cameraControl?.setZoomRatio(clamped)
-        _state.update { it.copy(zoom = clamped) }
+        val total = ratio.coerceIn(s.minZoom, s.maxZoom)
+        val hal = minOf(total, s.halMaxZoom)
+        camera?.cameraControl?.setZoomRatio(hal)
+        _state.update { it.copy(zoom = total, digital = (total / hal).coerceAtLeast(1f)) }
+    }
+
+    private fun supportsFps(p: ProcessCameraProvider, lens: Lens, fps: Int): Boolean {
+        val info = runCatching { baseSelector(lens).filter(p.availableCameraInfos).firstOrNull() }.getOrNull()
+            ?: return false
+        return info.supportedFrameRateRanges.any { it.upper >= fps && it.lower <= fps }
     }
 
     fun focus(previewView: PreviewView, x: Float, y: Float) {

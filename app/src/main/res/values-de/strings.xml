@@ -74,4 +74,7 @@
     <string name="source_code">Quellcode</string>
     <string name="license">Lizenz</string>
     <string name="unofficial">inoffizielles Fanprojekt, nicht mit Nothing verbunden</string>
+    <string name="video_fps">Bildrate</string>
+    <string name="video_fps_summary">60 fps nur, wo die Kamera es kann – sonst wird mit 30 fps aufgenommen. Im Videomodus wechselst du schnell über den Qualitäts-Knopf oben (z. B. 4K 30, HD 60).</string>
+    <string name="fps_unsupported">60 fps wird in dieser Qualität nicht unterstützt – Aufnahme mit 30 fps</string>
 </resources>

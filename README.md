@@ -14,9 +14,10 @@ OLED black, dot-matrix details, one red accent, and **no internet access at all*
 
 - **Photo, video, night & portrait**: night and portrait modes appear automatically when the phone's
   camera extensions support them
-- **Zoom chips & pinch zoom** (ultra-wide when available), **tap to focus**, **double-tap to switch camera**
+- **Zoom up to 40×** (chips 0.6 · 1 · 2 · 10 · 40 and pinch zoom): the camera's own zoom is used as far as it goes, beyond that
+  the centre of the photo is cropped (digital, so quality drops at very high zoom). Plus **tap to focus** and **double-tap to switch camera**
 - **Flash** (off / auto / on, torch while filming), **self-timer** (3 s / 10 s with a dot-matrix
-  countdown), **grid**, **4:3 / 16:9**, **720p / 1080p / 4K**, **pause/resume** while recording
+  countdown), **grid**, **4:3 / 16:9**, **720p / 1080p / 4K at 30 or 60 fps** (quick button in video mode: HD 30 → HD 60 → FHD 30 → FHD 60 → 4K 30 → 4K 60; falls back to 30 fps if the camera can't do 60), **pause/resume** while recording
 - **Volume and camera keys** work as the shutter
 - **Icons rotate** with the phone while the UI stays put, and photos are always saved the right way up
 - **Works as the system camera**: other apps can request photos and videos from it

@@ -13,10 +13,11 @@ OLED siyahı, nokta matris detaylar, tek bir kırmızı vurgu ve **hiç internet
 
 - **Fotoğraf, video, gece ve portre**: telefonun kamera eklentileri destekliyorsa gece ve portre
   modları otomatik olarak görünür
-- **Yakınlaştırma düğmeleri ve iki parmakla yakınlaştırma** (varsa ultra geniş açı),
-  **odaklamak için dokun**, **kamerayı değiştirmek için çift dokun**
+- **40×'e kadar yakınlaştırma** (0,6 · 1 · 2 · 10 · 40 düğmeleri ve iki parmakla yakınlaştırma): kameranın kendi zoom'u
+  gidebildiği yere kadar kullanılır, ötesinde fotoğrafın ortası kırpılır (dijital, yani çok yüksek zoom'da kalite düşer).
+  Ayrıca **odaklamak için dokun** ve **kamerayı değiştirmek için çift dokun**
 - **Flaş** (kapalı / otomatik / açık, video çekerken fener), **zamanlayıcı** (3 sn / 10 sn, nokta
-  matris geri sayım), **ızgara**, **4:3 / 16:9**, **720p / 1080p / 4K**, kayıt sırasında **duraklat**
+  matris geri sayım), **ızgara**, **4:3 / 16:9**, **30 veya 60 fps ile 720p / 1080p / 4K** (video modunda hızlı düğme: HD 30 → HD 60 → FHD 30 → FHD 60 → 4K 30 → 4K 60; kamera 60 yapamıyorsa 30 fps'e düşer), kayıt sırasında **duraklat**
 - **Ses ve kamera tuşları** deklanşör olarak çalışır
 - **Simgeler telefonla birlikte döner**, arayüz sabit kalır ve fotoğraflar her zaman doğru yönde kaydedilir
 - **Sistem kamerası olarak çalışır**: diğer uygulamalar ondan fotoğraf ve video isteyebilir
