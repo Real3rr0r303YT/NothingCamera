@@ -37,8 +37,23 @@ android {
         resourceConfigurations += listOf("en", "de", "tr")
     }
 
+    // Release signing comes from CI secrets (see .github/workflows/release.yml).
+    // Without them the release APK is signed with the debug key so it still installs.
+    val keystorePath: String? = System.getenv("NC_KEYSTORE_FILE")
+    signingConfigs {
+        create("release") {
+            if (keystorePath != null) {
+                storeFile = file(keystorePath)
+                storePassword = System.getenv("NC_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("NC_KEY_ALIAS")
+                keyPassword = System.getenv("NC_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName(if (keystorePath != null) "release" else "debug")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
