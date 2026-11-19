@@ -30,8 +30,8 @@ android {
         applicationId = "com.real3rr0r303yt.nothingcamera"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
         vectorDrawables.useSupportLibrary = true
         // Only ship the three supported languages.
         resourceConfigurations += listOf("en", "de", "tr")

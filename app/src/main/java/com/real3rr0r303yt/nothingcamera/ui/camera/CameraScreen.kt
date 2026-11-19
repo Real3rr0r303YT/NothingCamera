@@ -126,6 +126,7 @@ import com.real3rr0r303yt.nothingcamera.privacy.MediaSaver
 import com.real3rr0r303yt.nothingcamera.privacy.Vault
 import com.real3rr0r303yt.nothingcamera.ui.components.DotMatrixText
 import com.real3rr0r303yt.nothingcamera.ui.components.GlassIconButton
+import com.real3rr0r303yt.nothingcamera.ui.components.LiquidZoomSlider
 import com.real3rr0r303yt.nothingcamera.ui.theme.NothingGrey
 import com.real3rr0r303yt.nothingcamera.ui.theme.NothingRed
 import com.real3rr0r303yt.nothingcamera.ui.theme.NothingWhite
@@ -665,7 +666,14 @@ private fun BottomControls(
             .padding(bottom = 18.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        ZoomChips(zoom, minZoom, maxZoom, angle, onZoom)
+        LiquidZoomSlider(
+            zoom = zoom,
+            minZoom = minZoom,
+            maxZoom = maxZoom,
+            angle = angle,
+            onZoom = onZoom,
+            label = stringResource(R.string.zoom),
+        )
         Spacer(Modifier.height(14.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             modes.forEach { m ->
@@ -768,52 +776,6 @@ private fun Shutter(mode: Mode, recording: Boolean, counting: Boolean, busy: Boo
         }
         Box(inner)
     }
-}
-
-@Composable
-private fun ZoomChips(zoom: Float, minZoom: Float, maxZoom: Float, angle: Float, onZoom: (Float) -> Unit) {
-    if (maxZoom <= 1.01f && minZoom >= 0.99f) return
-    val presets = buildList {
-        if (minZoom < 0.95f) add(minZoom)
-        add(1f)
-        if (maxZoom >= 2f) add(2f)
-        when {
-            maxZoom >= 40f -> { add(10f); add(40f) }
-            maxZoom >= 10f -> add(10f)
-            maxZoom >= 5f -> add(5f)
-        }
-    }
-    val active = presets.lastOrNull { zoom + 0.01f >= it } ?: presets.first()
-    Row(
-        Modifier.clip(RoundedCornerShape(50)).background(Color(0x66000000)).padding(4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        presets.forEach { p ->
-            val selected = p == active
-            val label = if (selected) formatZoom(zoom) else formatZoom(p).removeSuffix("×")
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(if (selected) Color(0x33FFFFFF) else Color.Transparent)
-                    .clickable(role = Role.Button) { onZoom(p) },
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    label,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = if (selected) NothingRed else NothingWhite,
-                    modifier = Modifier.rotate(angle),
-                )
-            }
-        }
-    }
-}
-
-private fun formatZoom(z: Float): String {
-    val rounded = (z * 10).roundToInt() / 10f
-    val text = if (rounded % 1f == 0f) rounded.toInt().toString() else String.format(Locale.ROOT, "%.1f", rounded)
-    return "$text×"
 }
 
 /** Quick presets cycled by the quality pill in video mode. */

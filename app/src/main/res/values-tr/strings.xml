@@ -77,4 +77,5 @@
     <string name="video_fps">Kare hızı</string>
     <string name="video_fps_summary">60 fps yalnızca kamera destekliyorsa – aksi halde 30 fps ile kaydedilir. Video modunda üstteki kalite düğmesiyle hızlıca değiştir (ör. 4K 30, HD 60).</string>
     <string name="fps_unsupported">Bu kalitede 60 fps desteklenmiyor – 30 fps ile kaydediliyor</string>
+    <string name="zoom">Yakınlaştırma</string>
 </resources>

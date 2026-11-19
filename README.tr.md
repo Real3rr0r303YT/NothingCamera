@@ -13,7 +13,7 @@ OLED siyahı, nokta matris detaylar, tek bir kırmızı vurgu ve **hiç internet
 
 - **Fotoğraf, video, gece ve portre**: telefonun kamera eklentileri destekliyorsa gece ve portre
   modları otomatik olarak görünür
-- **40×'e kadar yakınlaştırma** (0,6 · 1 · 2 · 10 · 40 düğmeleri ve iki parmakla yakınlaştırma): kameranın kendi zoom'u
+- **Liquid glass yakınlaştırma kaydırıcısıyla 40×'e kadar zoom** (1× → 40×, 1 · 2 · 5 · 10 · 20 · 40'ta titreşimli duraklar, ultra geniş için 0,6 düğmesi) ve iki parmakla yakınlaştırma: kameranın kendi zoom'u
   gidebildiği yere kadar kullanılır, ötesinde fotoğrafın ortası kırpılır (dijital, yani çok yüksek zoom'da kalite düşer).
   Ayrıca **odaklamak için dokun** ve **kamerayı değiştirmek için çift dokun**
 - **Flaş** (kapalı / otomatik / açık, video çekerken fener), **zamanlayıcı** (3 sn / 10 sn, nokta

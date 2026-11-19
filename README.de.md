@@ -13,7 +13,7 @@ Tiefschwarz, Dot-Matrix-Details, ein roter Akzent und **überhaupt kein Internet
 
 - **Foto, Video, Nacht & Porträt**: Nacht- und Porträtmodus erscheinen automatisch, wenn die
   Kamera-Extensions des Handys sie unterstützen
-- **Zoom bis 40×** (Chips 0,6 · 1 · 2 · 10 · 40 und Pinch-Zoom): der Zoom der Kamera wird so weit wie möglich genutzt, darüber
+- **Zoom bis 40×** mit **Liquid-Glass-Zoomregler** (1× → 40×, spürbare Raster bei 1 · 2 · 5 · 10 · 20 · 40, 0,6-Knopf für Ultraweitwinkel) und Pinch-Zoom: der Zoom der Kamera wird so weit wie möglich genutzt, darüber
   wird die Fotomitte zugeschnitten (digital, also schlechtere Qualität bei sehr starkem Zoom). Dazu **Tippen zum Fokussieren**
   und **Doppeltippen zum Kamerawechsel**
 - **Blitz** (aus / auto / an, beim Filmen als Taschenlampe), **Selbstauslöser** (3 s / 10 s mit
