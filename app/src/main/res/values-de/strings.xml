@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NothingCamera – private, offline camera for Android
+    Copyright (C) 2026 Real3rr0r303YT
+    SPDX-License-Identifier: GPL-3.0-or-later
+    Licensed under the GNU GPL v3. See LICENSE for details.
+-->
+<resources>
+    <string name="back">Zurück</string>
+    <string name="settings">Einstellungen</string>
+    <string name="vault">Tresor</string>
+    <string name="gallery">Galerie</string>
+    <string name="mode_photo">Foto</string>
+    <string name="mode_video">Video</string>
+    <string name="mode_night">Nacht</string>
+    <string name="mode_portrait">Porträt</string>
+    <string name="flash">Blitz</string>
+    <string name="timer">Selbstauslöser</string>
+    <string name="grid">Raster</string>
+    <string name="shutter">Foto oder Video aufnehmen</string>
+    <string name="switch_camera">Kamera wechseln</string>
+    <string name="last_capture">Letzte Aufnahme</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Fortsetzen</string>
+    <string name="saving_to_vault">Speichert im verschlüsselten Tresor</string>
+    <string name="saving_to_gallery">Speichert in der Galerie</string>
+    <string name="error_capture">Aufnahme fehlgeschlagen</string>
+    <string name="error_camera">Kamera nicht verfügbar: %1$s</string>
+    <string name="error_generic">Etwas ist schiefgelaufen</string>
+    <string name="no_gallery_app">Keine Galerie-App installiert</string>
+    <string name="permission_camera">NothingCamera braucht die Kamera-Berechtigung für Fotos und Videos. Die App hat keinen Internetzugriff und kennt deinen Standort nie.</string>
+    <string name="grant">Kamera erlauben</string>
+    <string name="open_app_settings">App-Einstellungen öffnen</string>
+    <string name="privacy_title">Privat von Grund auf</string>
+    <string name="privacy_summary">Keine Internet-Berechtigung · kein Standort · alle Metadaten (EXIF, GPS, Gerätemodell, Zeitstempel) werden aus jedem Foto entfernt</string>
+    <string name="section_privacy">Datenschutz &amp; OPSEC</string>
+    <string name="section_capture">Aufnahme</string>
+    <string name="section_language">Sprache</string>
+    <string name="section_support">Unterstützen</string>
+    <string name="section_about">Über</string>
+    <string name="save_to">Neue Aufnahmen speichern in</string>
+    <string name="save_to_summary">Der Tresor ist verschlüsselt (AES-256-GCM, Schlüssel im Android Keystore) und für andere Apps unsichtbar</string>
+    <string name="random_names">Zufällige Dateinamen</string>
+    <string name="random_names_summary">IMG_3f9a… statt IMG_20261119_1447… – verrät nicht, wann ein Foto entstand</string>
+    <string name="vault_lock">Tresor sperren</string>
+    <string name="vault_lock_summary">Fingerabdruck, Gesicht oder Displaysperre zum Öffnen – sperrt sich beim Verlassen der App wieder</string>
+    <string name="block_screenshots">Screenshots blockieren</string>
+    <string name="block_screenshots_summary">Keine Screenshots oder Bildschirmaufnahmen, leere Vorschau in den letzten Apps</string>
+    <string name="shutter_sound">Auslöseton</string>
+    <string name="record_audio">Ton in Videos aufnehmen</string>
+    <string name="record_audio_summary">Aus = Videos ohne Ton, das Mikrofon wird nie benutzt</string>
+    <string name="video_quality">Videoqualität</string>
+    <string name="language">App-Sprache</string>
+    <string name="language_system">System</string>
+    <string name="open_vault">Tresor öffnen</string>
+    <string name="vault_info">Nur auf diesem Gerät verschlüsselt. Nicht in der Galerie, nicht in Backups.</string>
+    <string name="vault_empty">Der Tresor ist leer.\nTippe auf das Schloss im Kamerabildschirm, um neue Aufnahmen hier zu speichern.</string>
+    <string name="wipe_vault">Tresor löschen</string>
+    <string name="wipe_vault_summary">Panikknopf: vernichtet den Schlüssel – alle Tresordateien sind sofort unlesbar</string>
+    <string name="wipe_vault_confirm">Alle Fotos und Videos im Tresor werden vernichtet. Das kann nicht rückgängig gemacht werden.</string>
+    <string name="wipe">Löschen</string>
+    <string name="vault_wiped">Tresor gelöscht</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="close">Schließen</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_confirm">Dieses Element endgültig aus dem Tresor löschen?</string>
+    <string name="export_to_gallery">Exportieren</string>
+    <string name="exported">In die Galerie kopiert (DCIM/NothingCamera)</string>
+    <string name="unlock_vault">Tresor entsperren</string>
+    <string name="unlock_vault_summary">Bestätige, dass du es bist</string>
+    <string name="no_screen_lock">Keine Displaysperre eingerichtet – der Tresor kann nicht gesperrt werden. Richte eine PIN ein.</string>
+    <string name="donate_text">NothingCamera ist kostenlos, Open Source und ohne Werbung oder Tracking. Wenn sie dir gefällt, spendier mir einen Kaffee ☕</string>
+    <string name="donate_button">SPENDIER MIR EINEN KAFFEE</string>
+    <string name="source_code">Quellcode</string>
+    <string name="license">Lizenz</string>
+    <string name="unofficial">inoffizielles Fanprojekt, nicht mit Nothing verbunden</string>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NothingCamera – private, offline camera for Android
+    Copyright (C) 2026 Real3rr0r303YT
+    SPDX-License-Identifier: GPL-3.0-or-later
+    Licensed under the GNU GPL v3. See LICENSE for details.
+-->
+<resources>
+    <string name="back">Geri</string>
+    <string name="settings">Ayarlar</string>
+    <string name="vault">Kasa</string>
+    <string name="gallery">Galeri</string>
+    <string name="mode_photo">Fotoğraf</string>
+    <string name="mode_video">Video</string>
+    <string name="mode_night">Gece</string>
+    <string name="mode_portrait">Portre</string>
+    <string name="flash">Flaş</string>
+    <string name="timer">Zamanlayıcı</string>
+    <string name="grid">Izgara</string>
+    <string name="shutter">Fotoğraf veya video çek</string>
+    <string name="switch_camera">Kamerayı değiştir</string>
+    <string name="last_capture">Son çekim</string>
+    <string name="pause">Duraklat</string>
+    <string name="resume">Devam et</string>
+    <string name="saving_to_vault">Şifreli kasaya kaydediliyor</string>
+    <string name="saving_to_gallery">Galeriye kaydediliyor</string>
+    <string name="error_capture">Çekim başarısız</string>
+    <string name="error_camera">Kamera kullanılamıyor: %1$s</string>
+    <string name="error_generic">Bir şeyler ters gitti</string>
+    <string name="no_gallery_app">Galeri uygulaması yüklü değil</string>
+    <string name="permission_camera">NothingCamera, fotoğraf ve video çekmek için kamera iznine ihtiyaç duyar. Uygulamanın internet erişimi yoktur ve konumunu asla bilmez.</string>
+    <string name="grant">Kameraya izin ver</string>
+    <string name="open_app_settings">Uygulama ayarlarını aç</string>
+    <string name="privacy_title">Tasarımdan gizli</string>
+    <string name="privacy_summary">İnternet izni yok · konum yok · tüm meta veriler (EXIF, GPS, cihaz modeli, zaman damgaları) her fotoğraftan silinir</string>
+    <string name="section_privacy">Gizlilik ve OPSEC</string>
+    <string name="section_capture">Çekim</string>
+    <string name="section_language">Dil</string>
+    <string name="section_support">Destek</string>
+    <string name="section_about">Hakkında</string>
+    <string name="save_to">Yeni çekimleri kaydet</string>
+    <string name="save_to_summary">Kasa şifrelidir (AES-256-GCM, anahtar Android Keystore\'da) ve diğer uygulamalara görünmez</string>
+    <string name="random_names">Rastgele dosya adları</string>
+    <string name="random_names_summary">IMG_20261119_1447… yerine IMG_3f9a… – fotoğrafın ne zaman çekildiğini gizler</string>
+    <string name="vault_lock">Kasayı kilitle</string>
+    <string name="vault_lock_summary">Açmak için parmak izi, yüz veya ekran kilidi – uygulamadan çıkınca tekrar kilitlenir</string>
+    <string name="block_screenshots">Ekran görüntülerini engelle</string>
+    <string name="block_screenshots_summary">Ekran görüntüsü veya ekran kaydı yok, son uygulamalarda boş önizleme</string>
+    <string name="shutter_sound">Deklanşör sesi</string>
+    <string name="record_audio">Videolarda ses kaydet</string>
+    <string name="record_audio_summary">Kapalı = sessiz videolar, mikrofon hiç kullanılmaz</string>
+    <string name="video_quality">Video kalitesi</string>
+    <string name="language">Uygulama dili</string>
+    <string name="language_system">Sistem</string>
+    <string name="open_vault">Kasayı aç</string>
+    <string name="vault_info">Yalnızca bu cihazda şifreli. Galeride yok, yedeklemelerde yok.</string>
+    <string name="vault_empty">Kasa boş.\nYeni çekimleri buraya kaydetmek için kamera ekranındaki kilit simgesine dokun.</string>
+    <string name="wipe_vault">Kasayı sil</string>
+    <string name="wipe_vault_summary">Panik butonu: anahtarı yok eder – tüm kasa dosyaları anında okunamaz hale gelir</string>
+    <string name="wipe_vault_confirm">Kasadaki tüm fotoğraf ve videolar yok edilecek. Bu işlem geri alınamaz.</string>
+    <string name="wipe">Sil</string>
+    <string name="vault_wiped">Kasa silindi</string>
+    <string name="cancel">İptal</string>
+    <string name="close">Kapat</string>
+    <string name="delete">Sil</string>
+    <string name="delete_confirm">Bu öğe kasadan kalıcı olarak silinsin mi?</string>
+    <string name="export_to_gallery">Dışa aktar</string>
+    <string name="exported">Galeriye kopyalandı (DCIM/NothingCamera)</string>
+    <string name="unlock_vault">Kasanın kilidini aç</string>
+    <string name="unlock_vault_summary">Sen olduğunu doğrula</string>
+    <string name="no_screen_lock">Ekran kilidi ayarlanmamış – kasa kilitlenemiyor. Gerçek koruma için bir PIN belirle.</string>
+    <string name="donate_text">NothingCamera ücretsiz, açık kaynaklı, reklamsız ve takipsizdir. Beğendiysen bana bir kahve ısmarlayabilirsin ☕</string>
+    <string name="donate_button">BANA BİR KAHVE ISMARLA</string>
+    <string name="source_code">Kaynak kodu</string>
+    <string name="license">Lisans</string>
+    <string name="unofficial">resmi olmayan hayran projesi, Nothing ile bağlantısı yok</string>
+</resources>

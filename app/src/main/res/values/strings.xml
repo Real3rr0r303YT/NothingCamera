@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NothingCamera – private, offline camera for Android
+    Copyright (C) 2026 Real3rr0r303YT
+    SPDX-License-Identifier: GPL-3.0-or-later
+    Licensed under the GNU GPL v3. See LICENSE for details.
+-->
+<resources>
+    <string name="app_name" translatable="false">NothingCamera</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="vault">Vault</string>
+    <string name="gallery">Gallery</string>
+    <string name="mode_photo">Photo</string>
+    <string name="mode_video">Video</string>
+    <string name="mode_night">Night</string>
+    <string name="mode_portrait">Portrait</string>
+    <string name="flash">Flash</string>
+    <string name="timer">Self-timer</string>
+    <string name="grid">Grid</string>
+    <string name="shutter">Take photo or video</string>
+    <string name="switch_camera">Switch camera</string>
+    <string name="last_capture">Last capture</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="saving_to_vault">Saving to encrypted vault</string>
+    <string name="saving_to_gallery">Saving to gallery</string>
+    <string name="error_capture">Capture failed</string>
+    <string name="error_camera">Camera unavailable: %1$s</string>
+    <string name="error_generic">Something went wrong</string>
+    <string name="no_gallery_app">No gallery app installed</string>
+    <string name="permission_camera">NothingCamera needs the camera permission to take photos and videos. It has no internet access and never sees your location.</string>
+    <string name="grant">Allow camera</string>
+    <string name="open_app_settings">Open app settings</string>
+    <string name="privacy_title">Private by design</string>
+    <string name="privacy_summary">No internet permission · no location · all metadata (EXIF, GPS, device model, timestamps) is stripped from every photo</string>
+    <string name="section_privacy">Privacy &amp; OPSEC</string>
+    <string name="section_capture">Capture</string>
+    <string name="section_language">Language</string>
+    <string name="section_support">Support</string>
+    <string name="section_about">About</string>
+    <string name="save_to">Save new captures to</string>
+    <string name="save_to_summary">The vault is encrypted (AES-256-GCM, key in the Android Keystore) and invisible to other apps</string>
+    <string name="random_names">Random file names</string>
+    <string name="random_names_summary">IMG_3f9a… instead of IMG_20261119_1447… – hides when a photo was taken</string>
+    <string name="vault_lock">Lock vault</string>
+    <string name="vault_lock_summary">Fingerprint, face or screen lock to open – locks again when you leave the app</string>
+    <string name="block_screenshots">Block screenshots</string>
+    <string name="block_screenshots_summary">No screenshots or screen recordings, blank preview in recent apps</string>
+    <string name="shutter_sound">Shutter sound</string>
+    <string name="record_audio">Record audio in videos</string>
+    <string name="record_audio_summary">Off = silent videos, the microphone is never used</string>
+    <string name="video_quality">Video quality</string>
+    <string name="language">App language</string>
+    <string name="language_system">System</string>
+    <string name="open_vault">Open vault</string>
+    <string name="vault_info">Encrypted on this device only. Not in the gallery, not in backups.</string>
+    <string name="vault_empty">The vault is empty.\nTap the lock icon on the camera screen to save new captures here.</string>
+    <string name="wipe_vault">Wipe vault</string>
+    <string name="wipe_vault_summary">Panic button: destroys the key – every vault file becomes unreadable instantly</string>
+    <string name="wipe_vault_confirm">All photos and videos in the vault will be destroyed. This cannot be undone.</string>
+    <string name="wipe">Wipe</string>
+    <string name="vault_wiped">Vault wiped</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirm">Delete this item from the vault for good?</string>
+    <string name="export_to_gallery">Export</string>
+    <string name="exported">Copied to gallery (DCIM/NothingCamera)</string>
+    <string name="unlock_vault">Unlock vault</string>
+    <string name="unlock_vault_summary">Confirm it\'s you</string>
+    <string name="no_screen_lock">No screen lock set – the vault can\'t be locked. Set a PIN for real protection.</string>
+    <string name="donate_text">NothingCamera is free, open source and has no ads or tracking. If you like it, you can buy me a coffee ☕</string>
+    <string name="donate_button">BUY ME A COFFEE</string>
+    <string name="source_code">Source code</string>
+    <string name="license">License</string>
+    <string name="made_by" translatable="false">Made by 3rr0r303YT on TikTok</string>
+    <string name="unofficial">unofficial fan project, not affiliated with Nothing</string>
+</resources>
