@@ -78,4 +78,9 @@
     <string name="video_fps_summary">60 fps yalnızca kamera destekliyorsa – aksi halde 30 fps ile kaydedilir. Video modunda üstteki kalite düğmesiyle hızlıca değiştir (ör. 4K 30, HD 60).</string>
     <string name="fps_unsupported">Bu kalitede 60 fps desteklenmiyor – 30 fps ile kaydediliyor</string>
     <string name="zoom">Yakınlaştırma</string>
+    <!-- Widget -->
+    <string name="widget_camera_name">Kamera</string>
+    <string name="widget_camera_desc">Ana ekranda deklanşör – tek dokunuşla fotoğraf veya video</string>
+    <string name="widget_camera_photo">FOTO</string>
+    <string name="widget_camera_video">VİDEO</string>
 </resources>

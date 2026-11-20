@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GPL-3.0-or-later – Made by 3rr0r303YT on TikTok -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_camera_desc"
+    android:initialLayout="@layout/widget_camera"
+    android:minWidth="110dp"
+    android:minHeight="160dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="140dp"
+    android:previewLayout="@layout/widget_camera"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

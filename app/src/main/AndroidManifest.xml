@@ -76,6 +76,19 @@
             </intent-filter>
         </activity>
 
+        <!-- Home screen widget: shutter, photo / video (shows no media) -->
+        <receiver
+            android:name=".widget.CameraWidget"
+            android:exported="false"
+            android:label="@string/widget_camera_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_camera_info" />
+        </receiver>
+
         <!-- Lets AppCompat persist the per-app language on API < 33. -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

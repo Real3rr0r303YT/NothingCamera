@@ -22,6 +22,7 @@ OLED black, dot-matrix details, one red accent, and **no internet access at all*
 - **Icons rotate** with the phone while the UI stays put, and photos are always saved the right way up
 - **Works as the system camera**: other apps can request photos and videos from it
   (`IMAGE_CAPTURE` / `VIDEO_CAPTURE`)
+- **Home screen widget**: shutter plus photo / video buttons – opens straight in the right mode, shows no media
 - **English, German and Turkish**: follows the system language, or pick one in Settings
 
 ## Privacy & OPSEC
